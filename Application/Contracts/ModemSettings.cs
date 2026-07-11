@@ -6,5 +6,5 @@ public class ModemSettings
     
     public string PortName { get; set; } = string.Empty;
     public int BaudRate { get; set; } = 9600;
-    public int Timeout { get; set; } = 1000;
+    public int Timeout { get; set; } = 2000;
 }
