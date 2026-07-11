@@ -1,0 +1,88 @@
+## Build results
+bin/
+obj/
+out/
+artifacts/
+publish/
+
+## VS Code
+.vscode/
+
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Mono Auto Generated Files
+mono_crash.*
+
+## OS generated files
+.DS_Store
+Thumbs.db
+
+## Visual Studio
+.vs/
+*.dbmdl
+*.bak
+*.cache
+*.log
+*.pdb
+
+## Rider
+.idea/
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## DotCover
+.idea/
+*.dotCover
+
+## NCrunch
+*.ncrunch*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+## MSTest test Results
+TestResults/
+*.trx
+
+## NUNIT
+*.VisualState.xml
+TestResult.xml
+
+## Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+## CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+CTestTestfile.cmake
+install_manifest.txt
+
+## Docker
+*.container*
+docker-compose.override.yml
+.env
+
+## Logs
+*.log
+
+## Local secrets
+secrets.json
+.env.*
+
+## Others
+*.vsidx
+*.vsp
+*.vspx
+*.psess
+*.vspf
