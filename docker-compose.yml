@@ -1,0 +1,20 @@
+services:
+  phonecallapi:
+    image: phonecallapi:latest
+    container_name: phonecallapi
+    devices:
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
+    group_add:
+      - dialout
+    ports:
+      - "10000:8080"
+      - "10001:8081"
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - DOTNET_VERSION=8.0
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ./logs:/app/logs
+      - ./certs:/app/certs:ro
+    restart: unless-stopped

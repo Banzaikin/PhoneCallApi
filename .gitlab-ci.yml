@@ -1,0 +1,38 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  APP_NAME: phonecallapi
+  DEPLOY_PATH: /home/andrey/phonecallapi
+  DEPLOY_HOST: "192.168.8.217"
+  DEPLOY_USER: "andrey"
+
+build:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_BRANCH'
+  script:
+    - docker build -t $APP_NAME:latest -f Dockerfile .
+
+deploy:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: on_success
+    - when: never
+
+  before_script:
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+    - chmod 600 ~/.ssh/deploy_key
+
+  script:
+    - scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no docker-compose.yml $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
+    - rsync -avz -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" certs/ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/certs/
+    - docker save ${APP_NAME}:latest | gzip | ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} "gunzip | docker load"
+    - ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST "
+        cd $DEPLOY_PATH &&
+        docker compose down &&
+        docker compose up -d
+      "
